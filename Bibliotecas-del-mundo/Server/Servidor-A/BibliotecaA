@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<BibliotecaA>
+    <Libro>
+        <title>Harry Potter and the Sorcerer's Stone</title>
+        <author>J. K. Rowling</author>
+    </Libro>
+    <Libro>
+        <title>Harry Potter and the Chamber of Secrets</title>
+        <author>J. K. Rowling</author>
+    </Libro>
+    <Libro>
+        <title>Harry Potter and the Prisoner of Azkaban</title>
+        <author>J. K. Rowling</author>
+    </Libro>
+    <Libro>
+        <title>Harry Potter and the Globet of Fire</title>
+        <author>J. K. Rowling</author>
+    </Libro>
+    <Libro>
+        <title>Harry Potter and the Order of Fenix</title>
+        <author>J. K. Rowling</author>
+    </Libro>
+    <Libro>
+        <title>Harry Potter and the Half-Blood Prince</title>
+        <author>J. K. Rowling</author>
+    </Libro>
+    <Libro>
+        <title>Harry Potter and the Deathly Hallows</title>
+        <author>J. K. Rowling</author>
+    </Libro>
+    <Libro>
+        <title>Don Quijote de la Mancha</title>
+        <author>Miguel de Cervantes</author>
+    </Libro>
+    <Libro>
+        <title>El Extranjero</title>
+        <author>Albert Camus</author>
+    </Libro>
+    <Libro>
+        <title>Divina Comedia</title>
+        <author>Dante Alighieri</author>
+    </Libro>
+</BibliotecaA>

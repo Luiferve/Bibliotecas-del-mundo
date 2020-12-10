@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<BibliotecaB>
+    <Libro>
+        <title>Cien años de soledad</title>
+        <author>Gabriel Garcia Marquez</author>
+    </Libro>
+    <Libro>
+        <title>El amor en los tiempos de colera</title>
+        <author>Gabriel Garcia Marquez</author>
+    </Libro>
+    <Libro>
+        <title>Madame Bovary</title>
+        <author>Gustave Flaubert</author>
+    </Libro>
+    <Libro>
+        <title>Odisea</title>
+        <author>Homero</author>
+    </Libro>
+    <Libro>
+        <title>Rebelion en la Granja</title>
+        <author>George Orwell</author>
+    </Libro>
+    <Libro>
+        <title>Cuentos Vol. 3</title>
+        <author>Edgar Allan Poe</author>
+    </Libro>
+    <Libro>
+        <title>Hamlet</title>
+        <author>William Shakespeare</author>
+    </Libro>
+    <Libro>
+        <title>Desgracia</title>
+        <author>J. M. Coetzee</author>
+    </Libro>
+    <Libro>
+        <title>Juegos de la edad tardia</title>
+        <author>Luis Landero</author>
+    </Libro>
+    <Libro>
+        <title>Nubosidad Variable</title>
+        <author>Carmen Martin Gaite</author>
+    </Libro>
+</BibliotecaB>

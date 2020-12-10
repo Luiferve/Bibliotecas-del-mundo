@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<BibliotecaC>
+    <Libro>
+        <title>El camino del arquero</title>
+        <author>Paulo Coelho</author>
+    </Libro>
+    <Libro>
+        <title>Reina</title>
+        <author>Bebi Fernandez</author>
+    </Libro>
+    <Libro>
+        <title>El club del crimen de los jueves</title>
+        <author>Richard Osman</author>
+    </Libro>
+    <Libro>
+        <title>Como polvo en el viento</title>
+        <author>Leonardo Padura</author>
+    </Libro>
+    <Libro>
+        <title>Cuentos inconclusos</title>
+        <author>J. R. R. Tolkien</author>
+    </Libro>
+    <Libro>
+        <title>El asesinato de Platon</title>
+        <author>Marcos Chicot</author>
+    </Libro>
+    <Libro>
+        <title>Manifiesto del sere</title>
+        <author>Luis F. Velez G.</author>
+    </Libro>
+    <Libro>
+        <title>La puerta</title>
+        <author>Manel Loureiro</author>
+    </Libro>
+    <Libro>
+        <title>Siete mentiras</title>
+        <author>Elizabeth Kay</author>
+    </Libro>
+    <Libro>
+        <title>Un caballero en Moscu</title>
+        <author>Amor Towles</author>
+    </Libro>
+</BibliotecaC>
