@@ -1,8 +1,9 @@
-package bibliotecaA;
+package bibliotecaC;
 
 import Z39.Z39;
 import libro.Libro;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -12,7 +13,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.List;
 
-public class BibliotecaA {
+public class BibliotecaC {
 
     private static Z39 look_up;
 
@@ -25,35 +26,35 @@ public class BibliotecaA {
             String author;
 
             while (cont == 1) {
-                System.out.println("Indique el comando a usar: (Ex1: Pedir libro; Ex2: Pedir Autor)");
+                System.out.println("Indique el comando a usar: (Ex1: Encontrar Vol; Ex2: Encontrar Autor)");
                 String comando = reader.readLine();
                 Registry registry;
 
                 switch (comando) {
-                    case "Pedir Libro":
+                    case "Encontrar Vol":
                         System.out.println("Introduzca la biblioteca a solicitar: ");
                         library = reader.readLine();
 
                         switch (library) {
-                            /*  IP              PORTS
-                                192.168.1.104   Biblioteca A = 55000
-                                192.168.1.106   Biblioteca B = 55500
-                                192.168.1.104   Biblioteca C = 55555
+                            /*  PORTS
+                                Biblioteca A = 55000
+                                Biblioteca B = 55500
+                                Biblioteca C = 55555
                              */
                             default:
-                                // Conecta con la biblioteca local, que en este caso es la Biblioteca A.
-                                System.out.println("Introduzca titulo del libro: ");
+                                // Conecta con la biblioteca local, que en este caso es la Biblioteca C.
+                                System.out.println("Introduzca volumen del libro: ");
                                 title = reader.readLine();
-                                registry = LocateRegistry.getRegistry("192.168.1.104",55000); // Localhost: 127.0.0.1
-                                look_up = (Z39) registry.lookup("ServerA");
+                                registry = LocateRegistry.getRegistry("127.0.0.1",55555); // Localhost: 127.0.0.1
+                                look_up = (Z39) registry.lookup("ServerC");
                                 Libro response = look_up.getAuthor("title", title);
-                                if(response == null){  // Si no encuentra en la biblioteca A, intenta con biblioteca B.
-                                    registry = LocateRegistry.getRegistry("192.168.1.106",55500); // Localhost: 127.0.0.1
-                                    look_up = (Z39) registry.lookup("ServerB");
+                                if(response == null){  // Si no encuentra en la biblioteca C, intenta con biblioteca A.
+                                    registry = LocateRegistry.getRegistry("127.0.0.1",55000); // Localhost: 127.0.0.1
+                                    look_up = (Z39) registry.lookup("ServerA");
                                     Libro response1 = look_up.getAuthor("title", title);
-                                    if(response1 == null) {  // Si no encuentra en la Biblioteca B, intenta con la biblioteca C.
-                                        registry = LocateRegistry.getRegistry("192.168.1.104", 55555); // Localhost: 127.0.0.1
-                                        look_up = (Z39) registry.lookup("ServerC");
+                                    if(response1 == null) {  // Si no encuentra en la Biblioteca A, intenta con la biblioteca B.
+                                        registry = LocateRegistry.getRegistry("127.0.0.1", 55500); // Localhost: 127.0.0.1
+                                        look_up = (Z39) registry.lookup("ServerB");
                                         Libro response2 = look_up.getAuthor("title", title);
                                         if (response2 == null){
                                             System.out.println("getAuthor: Book title not found!");
@@ -68,20 +69,20 @@ public class BibliotecaA {
                                 }
                                 cont = 0;
                                 break;
-                            case "B":
-                                // Conecta con la biblioteca B
-                                System.out.println("Introduzca titulo del libro: ");
+                            case "A":
+                                // Conecta con la biblioteca A
+                                System.out.println("Introduzca volumen del libro: ");
                                 title = reader.readLine();
 
-                                registry = LocateRegistry.getRegistry("192.168.1.106",55500); // Localhost: 127.0.0.1
-                                look_up = (Z39) registry.lookup("ServerB");
+                                registry = LocateRegistry.getRegistry("127.0.0.1",55000); // Localhost: 127.0.0.1
+                                look_up = (Z39) registry.lookup("ServerA");
                                 Libro response3 = look_up.getAuthor("title", title);
-                                if(response3 == null){  // Si no encuentra en la biblioteca B, intenta con la biblioteca A.
-                                    registry = LocateRegistry.getRegistry("192.168.1.104",55000); // Localhost: 127.0.0.1
-                                    look_up = (Z39) registry.lookup("ServerA");
+                                if(response3 == null){  // Si no encuentra en la biblioteca A, intenta con la biblioteca B.
+                                    registry = LocateRegistry.getRegistry("127.0.0.1",55500); // Localhost: 127.0.0.1
+                                    look_up = (Z39) registry.lookup("ServerB");
                                     Libro response4 = look_up.getAuthor("title", title);
-                                    if(response4 == null){ // Si no encuentra en la Biblioteca A, intenta con la biblioteca C.
-                                        registry = LocateRegistry.getRegistry("192.168.1.104",55555); // Localhost: 127.0.0.1
+                                    if(response4 == null){ // Si no encuentra en la Biblioteca B, intenta con la biblioteca C.
+                                        registry = LocateRegistry.getRegistry("127.0.0.1",55555); // Localhost: 127.0.0.1
                                         look_up = (Z39) registry.lookup("ServerC");
                                         Libro response5 = look_up.getAuthor("title", title);
                                         if (response5 == null){
@@ -97,19 +98,19 @@ public class BibliotecaA {
                                 }
                                 cont = 0;
                                 break;
-                            case "C":
-                                //Conecta con la biblioteca local. En este caso C
-                                System.out.println("Introduzca titulo del libro: ");
+                            case "B":
+                                //Conecta con la biblioteca local. En este caso B
+                                System.out.println("Introduzca volumen del libro: ");
                                 title = reader.readLine();
-                                registry = LocateRegistry.getRegistry("192.168.1.104",55555); // Localhost: 127.0.0.1
-                                look_up = (Z39) registry.lookup("ServerC");
+                                registry = LocateRegistry.getRegistry("127.0.0.1",55500); // Localhost: 127.0.0.1
+                                look_up = (Z39) registry.lookup("ServerB");
                                 Libro response6 = look_up.getAuthor("title", title);
-                                if(response6 == null){  //Si no encuentra en la biblioteca C, intenta con la biblioteca B.
-                                    registry = LocateRegistry.getRegistry("192.168.1.106",55500); // Localhost: 127.0.0.1
-                                    look_up = (Z39) registry.lookup("ServerB");
+                                if(response6 == null){  //Si no encuentra en la biblioteca B, intenta con la biblioteca C.
+                                    registry = LocateRegistry.getRegistry("127.0.0.1",55555); // Localhost: 127.0.0.1
+                                    look_up = (Z39) registry.lookup("ServerC");
                                     Libro response7 = look_up.getAuthor("title", title);
-                                    if(response7 == null){  // Si no encuentra en la Biblioteca B, intenta con la biblioteca A.
-                                        registry = LocateRegistry.getRegistry("192.168.1.104",55000); // Localhost: 127.0.0.1
+                                    if(response7 == null){  // Si no encuentra en la Biblioteca C, intenta con la biblioteca A.
+                                        registry = LocateRegistry.getRegistry("127.0.0.1",55000); // Localhost: 127.0.0.1
                                         look_up = (Z39) registry.lookup("ServerA");
                                         Libro response8 = look_up.getAuthor("title", title);
                                         if (response8 == null){
@@ -127,25 +128,25 @@ public class BibliotecaA {
                                 break;
                         }
                         break;
-                    case "Pedir Autor":
+                    case "Encontrar Autor":
                         System.out.println("Introduzca la biblioteca a solicitar: ");
                         library = reader.readLine();
 
                         switch (library) {
                             default:
-                                //Conecta con la biblioteca Local. En este caso la biblioteca A
+                                //Conecta con la biblioteca Local. En este caso la biblioteca C
                                 System.out.println("Introduzca el autor a buscar: ");
                                 author = reader.readLine();
-                                registry = LocateRegistry.getRegistry("192.168.1.104",55000); // Localhost: 127.0.0.1
-                                look_up = (Z39) registry.lookup("ServerA");
+                                registry = LocateRegistry.getRegistry("127.0.0.1",55555); // Localhost: 127.0.0.1
+                                look_up = (Z39) registry.lookup("ServerC");
                                 List<String> response = look_up.getBook(author);
-                                if(response == null){ // Si no encuentra en la biblioteca A, intenta con la biblioteca B.
-                                    registry = LocateRegistry.getRegistry("192.168.1.106",55500); // Localhost: 127.0.0.1
-                                    look_up = (Z39) registry.lookup("ServerB");
+                                if(response == null){ // Si no encuentra en la biblioteca C, intenta con la biblioteca A.
+                                    registry = LocateRegistry.getRegistry("127.0.0.1",55000); // Localhost: 127.0.0.1
+                                    look_up = (Z39) registry.lookup("ServerA");
                                     List<String> response1 = look_up.getBook(author);
-                                    if (response1 == null){ //Si no encuentra en la biblioteca B, intenta con la biblioteca C.
-                                        registry = LocateRegistry.getRegistry("192.168.1.104",55555); // Localhost: 127.0.0.1
-                                        look_up = (Z39) registry.lookup("ServerC");
+                                    if (response1 == null){ //Si no encuentra en la biblioteca A, intenta con la biblioteca B.
+                                        registry = LocateRegistry.getRegistry("127.0.0.1",55500); // Localhost: 127.0.0.1
+                                        look_up = (Z39) registry.lookup("ServerB");
                                         List<String> response2 = look_up.getBook(author);
                                         if(response2 == null){
                                             System.out.println("getBook: Author not found!");
@@ -170,15 +171,15 @@ public class BibliotecaA {
                                 //Conecta con la biblioteca Local. En este caso B
                                 System.out.println("Introduzca el autor a buscar: ");
                                 author = reader.readLine();
-                                registry = LocateRegistry.getRegistry("192.168.1.106",55500); // Localhost: 127.0.0.1
+                                registry = LocateRegistry.getRegistry("127.0.0.1",55000); // Localhost: 127.0.0.1
                                 look_up = (Z39) registry.lookup("ServerB");
                                 List<String> response3 = look_up.getBook(author);
                                 if(response3 == null){  // Si no encuentra en la biblioteca B, intenta con la biblioteca C.
-                                    registry = LocateRegistry.getRegistry("192.168.1.104",55555); // Localhost: 127.0.0.1
+                                    registry = LocateRegistry.getRegistry("127.0.0.1",55555); // Localhost: 127.0.0.1
                                     look_up = (Z39) registry.lookup("ServerC");
                                     List<String> response4 = look_up.getBook(author);
                                     if (response4 == null){ // Si no encuentra en la biblioteca C, intenta con la biblioteca A.
-                                        registry = LocateRegistry.getRegistry("192.168.1.104",55000); // Localhost: 127.0.0.1
+                                        registry = LocateRegistry.getRegistry("127.0.0.1",55000); // Localhost: 127.0.0.1
                                         look_up = (Z39) registry.lookup("ServerA");
                                         List<String> response5 = look_up.getBook(author);
                                         if (response5 == null){
@@ -200,20 +201,20 @@ public class BibliotecaA {
                                 }
                                 cont = 0;
                                 break;
-                            case "C":
-                                //Conecta con la biblioteca Local. En este caso C
+                            case "A":
+                                //Conecta con la biblioteca Local. En este caso A
                                 System.out.println("Introduzca el autor a buscar: ");
                                 author = reader.readLine();
-                                registry = LocateRegistry.getRegistry("192.168.1.104",55555); // Localhost: 127.0.0.1
-                                look_up = (Z39) registry.lookup("ServerC");
+                                registry = LocateRegistry.getRegistry("127.0.0.1",55000); // Localhost: 127.0.0.1
+                                look_up = (Z39) registry.lookup("ServerA");
                                 List<String> response6 = look_up.getBook(author);
-                                if(response6 == null){  // Si no encuentra en la biblioteca C, intenta con la biblioteca A.
-                                    registry = LocateRegistry.getRegistry("192.168.1.104",55000); // Localhost: 127.0.0.1
-                                    look_up = (Z39) registry.lookup("ServerA");
+                                if(response6 == null){  // Si no encuentra en la biblioteca A, intenta con la biblioteca B.
+                                    registry = LocateRegistry.getRegistry("127.0.0.1",55500); // Localhost: 127.0.0.1
+                                    look_up = (Z39) registry.lookup("ServerB");
                                     List<String> response7 = look_up.getBook(author);
-                                    if (response7 == null){ // Si no encuentra en la biblioteca A, intenta con la biblioteca B.
-                                        registry = LocateRegistry.getRegistry("192.168.1.106",55500); // Localhost: 127.0.0.1
-                                        look_up = (Z39) registry.lookup("ServerB");
+                                    if (response7 == null){ // Si no encuentra en la biblioteca B, intenta con la biblioteca C.
+                                        registry = LocateRegistry.getRegistry("127.0.0.1",55555); // Localhost: 127.0.0.1
+                                        look_up = (Z39) registry.lookup("ServerC");
                                         List<String> response8 = look_up.getBook(author);
                                         if (response8 == null){
                                             System.out.println("getBook: Author not found!");
@@ -250,7 +251,7 @@ public class BibliotecaA {
 
     public static void main(String[] args)
             throws MalformedURLException, RemoteException, NotBoundException {
-        BibliotecaA biblioteca = new BibliotecaA();
+        BibliotecaC biblioteca = new BibliotecaC();
         biblioteca.ClientConnectServer();
     }
 }
