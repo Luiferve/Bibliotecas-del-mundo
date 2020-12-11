@@ -67,9 +67,10 @@ public class ServidorB extends UnicastRemoteObject implements Z39 {
                             System.out.println("getAuthor: "+ bookAuthor +" in BibliotecaB!");
 
                             try {
-                                log = "getAuthor: "+ bookAuthor +" in BibliotecaB!/n";
+                                log = "getAuthor: "+ bookAuthor +" in BibliotecaB!";
+                                String path = System.getProperty("user.home");
                                 // File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt"); // Localhost
-                                File file = new File("E:/Home/Kali/log.txt"); // Linux
+                                File file = new File(path+"/Desktop/log.txt"); // Linux
                                 if (!file.exists()) {  // Crea el archivo en caso que no exista.
                                     file.createNewFile();
                                 }
@@ -109,9 +110,10 @@ public class ServidorB extends UnicastRemoteObject implements Z39 {
         System.out.println("getAuthor: Book title not found in BibliotecaB!");
 
         try {
-            log = "getAuthor: Book title not found in BibliotecaB!/n";
+            log = "getAuthor: Book title not found in BibliotecaB!";
+            String path = System.getProperty("user.home");
             // File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt"); // Localhost
-            File file = new File("E:/Home/Kali/log.txt"); // Linux
+            File file = new File(path+"/Desktop/log.txt"); // Linux
             if (!file.exists()) {  // Crea el archivo en caso que no exista.
                 file.createNewFile();
             }
@@ -171,9 +173,10 @@ public class ServidorB extends UnicastRemoteObject implements Z39 {
             if (!libros.isEmpty()) {
                 System.out.println("getBook: Book found in BibliotecaB!");
                 try {
-                    log = "getBook: Book found in BibliotecaB!/n";
+                    log = "getBook: Book found in BibliotecaB!";
+                    String path = System.getProperty("user.home");
                     // File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt"); // Localhost
-                    File file = new File("E:/Home/Kali/log.txt"); // Linux
+                    File file = new File(path+"/Desktop/log.txt"); // Linux
                     if (!file.exists()) {  // Crea el archivo en caso que no exista.
                         file.createNewFile();
                     }
@@ -206,9 +209,10 @@ public class ServidorB extends UnicastRemoteObject implements Z39 {
         System.out.println("getBook: Author not found in BibliotecaB!");
 
         try {
-            log = "getBook: Author not found in BibliotecaB!/n";
+            log = "getBook: Author not found in BibliotecaB!";
+            String path = System.getProperty("user.home");
             // File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt"); // Localhost
-            File file = new File("E:/Home/Kali/log.txt"); // Linux
+            File file = new File(path+"/Desktop/log.txt"); // Linux
             if (!file.exists()) {  // Crea el archivo en caso que no exista.
                 file.createNewFile();
             }
