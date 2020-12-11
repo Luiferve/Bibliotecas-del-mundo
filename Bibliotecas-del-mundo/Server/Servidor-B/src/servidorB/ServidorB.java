@@ -19,7 +19,9 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ServidorB extends UnicastRemoteObject implements Z39 {
@@ -66,13 +68,17 @@ public class ServidorB extends UnicastRemoteObject implements Z39 {
 
                             try {
                                 log = "getAuthor: "+ bookAuthor +" in BibliotecaB!/n";
-                                File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt");
+                                // File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt"); // Localhost
+                                File file = new File("E:/Home/Kali/log.txt"); // Linux
                                 if (!file.exists()) {  // Crea el archivo en caso que no exista.
                                     file.createNewFile();
                                 }
+                                Date objDate = new Date();
+                                String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
+                                SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
                                 fw = new FileWriter(file.getAbsoluteFile(), true);
                                 bw = new BufferedWriter(fw);
-                                bw.write(log);
+                                bw.write(log + " " + objSDF.format(objDate));
                                 bw.write("\n");
                                 System.out.println("Informacion Registrada!");
                             } catch (IOException e) {
@@ -104,13 +110,17 @@ public class ServidorB extends UnicastRemoteObject implements Z39 {
 
         try {
             log = "getAuthor: Book title not found in BibliotecaB!/n";
-            File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt");
+            // File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt"); // Localhost
+            File file = new File("E:/Home/Kali/log.txt"); // Linux
             if (!file.exists()) {  // Crea el archivo en caso que no exista.
                 file.createNewFile();
             }
+            Date objDate = new Date();
+            String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
+            SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
             fw = new FileWriter(file.getAbsoluteFile(), true);
             bw = new BufferedWriter(fw);
-            bw.write(log);
+            bw.write(log + " " + objSDF.format(objDate));
             bw.write("\n");
             System.out.println("Informacion Registrada!");
         } catch (IOException e) {
@@ -162,13 +172,17 @@ public class ServidorB extends UnicastRemoteObject implements Z39 {
                 System.out.println("getBook: Book found in BibliotecaB!");
                 try {
                     log = "getBook: Book found in BibliotecaB!/n";
-                    File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt");
+                    // File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt"); // Localhost
+                    File file = new File("E:/Home/Kali/log.txt"); // Linux
                     if (!file.exists()) {  // Crea el archivo en caso que no exista.
                         file.createNewFile();
                     }
+                    Date objDate = new Date();
+                    String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
+                    SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
                     fw = new FileWriter(file.getAbsoluteFile(), true);
                     bw = new BufferedWriter(fw);
-                    bw.write(log);
+                    bw.write(log + " " + objSDF.format(objDate));
                     bw.write("\n");
                     System.out.println("Informacion Registrada!");
                 } catch (IOException e) {
@@ -193,15 +207,19 @@ public class ServidorB extends UnicastRemoteObject implements Z39 {
 
         try {
             log = "getBook: Author not found in BibliotecaB!/n";
-            File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt");
+            // File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt"); // Localhost
+            File file = new File("E:/Home/Kali/log.txt"); // Linux
             if (!file.exists()) {  // Crea el archivo en caso que no exista.
                 file.createNewFile();
             }
+            Date objDate = new Date();
+            String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
+            SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
             fw = new FileWriter(file.getAbsoluteFile(), true);
             bw = new BufferedWriter(fw);
-            bw.write(log);
+            bw.write(log + " " + objSDF.format(objDate));
             bw.write("\n");
-            System.out.println("Información Registrada!");
+            System.out.println("Informacion Registrada!");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
