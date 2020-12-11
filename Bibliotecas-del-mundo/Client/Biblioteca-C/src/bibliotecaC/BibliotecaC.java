@@ -3,19 +3,52 @@ package bibliotecaC;
 import Z39.Z39;
 import libro.Libro;
 
-import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class BibliotecaC {
 
     private static Z39 look_up;
+
+    private void wlog(String log){
+        BufferedWriter bw = null;
+        FileWriter fw = null;
+        try{
+            String path = System.getProperty("user.home");
+            // File file = new File("C:/Users/User/Desktop/Bibliotecas-del-mundo/log.txt"); // Localhost
+            File file = new File(path+"/Desktop/ClienteCLog.txt"); // Linux
+            if (!file.exists()) {  // Crea el archivo en caso que no exista.
+                file.createNewFile();
+            }
+            Date objDate = new Date();
+            String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
+            SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
+            fw = new FileWriter(file.getAbsoluteFile(), true);
+            bw = new BufferedWriter(fw);
+            bw.write(log + " " + objSDF.format(objDate));
+            bw.write("\n");
+            System.out.println("Informacion Registrada!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                //Cierra instancias de FileWriter y BufferedWriter
+                if (bw != null)
+                    bw.close();
+                if (fw != null)
+                    fw.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    };
 
     private void ClientConnectServer() throws RemoteException{
         try{
@@ -52,19 +85,25 @@ public class BibliotecaC {
                                     registry = LocateRegistry.getRegistry("192.168.1.104",55000); // Localhost: 127.0.0.1
                                     look_up = (Z39) registry.lookup("ServerA");
                                     Libro response1 = look_up.getAuthor("title", title);
+                                    wlog("getAuthor: Book title not found in biblioteca C!");
                                     if(response1 == null) {  // Si no encuentra en la Biblioteca A, intenta con la biblioteca B.
                                         registry = LocateRegistry.getRegistry("192.168.1.106", 55500); // Localhost: 127.0.0.1
                                         look_up = (Z39) registry.lookup("ServerB");
                                         Libro response2 = look_up.getAuthor("title", title);
+                                        wlog("getAuthor: Book title not found in biblioteca A!");
                                         if (response2 == null){
-                                            System.out.println("getAuthor: Book title not found!");
+                                            wlog("getAuthor: Book title not found in biblioteca B!");
+                                            System.out.println("getAuthor: Book title not found in biblioteca B!");
                                         } else{
+                                            wlog("Libro: " + response2.getTitle() + " - " + "Autor: " + response2.getAuthor() + "Found in Biblioteca B ");
                                             System.out.println("Libro: " + response2.getTitle() + " - " + "Autor: " + response2.getAuthor());
                                         }
                                     } else{
+                                        wlog("Libro: " + response1.getTitle() + " - " + "Autor: " + response1.getAuthor() + "Found in Biblioteca A ");
                                         System.out.println("Libro: " + response1.getTitle() + " - " + "Autor: " + response1.getAuthor());
                                     }
                                 } else {
+                                    wlog("Libro: " + response.getTitle() + " - " + "Autor: " + response.getAuthor() + "Found in Biblioteca C ");
                                     System.out.println("Libro: " + response.getTitle() + " - " + "Autor: " + response.getAuthor());
                                 }
                                 cont = 0;
@@ -81,19 +120,25 @@ public class BibliotecaC {
                                     registry = LocateRegistry.getRegistry("192.168.1.106",55500); // Localhost: 127.0.0.1
                                     look_up = (Z39) registry.lookup("ServerB");
                                     Libro response4 = look_up.getAuthor("title", title);
+                                    wlog("getAuthor: Book title not found in biblioteca A!");
                                     if(response4 == null){ // Si no encuentra en la Biblioteca B, intenta con la biblioteca C.
                                         registry = LocateRegistry.getRegistry("192.168.1.104",55555); // Localhost: 127.0.0.1
                                         look_up = (Z39) registry.lookup("ServerC");
                                         Libro response5 = look_up.getAuthor("title", title);
+                                        wlog("getAuthor: Book title not found in biblioteca B!");
                                         if (response5 == null){
-                                            System.out.println("getAuthor: Book title not found!");
+                                            wlog("getAuthor: Book title not found in biblioteca C!");
+                                            System.out.println("getAuthor: Book title not found in biblioteca C!");
                                         } else {
                                             System.out.println("Libro: " + response5.getTitle() + " - " + "Autor: " + response5.getAuthor());
+                                            wlog("Libro: " + response5.getTitle() + " - " + "Autor: " + response5.getAuthor() + "Found in Biblioteca C! ");
                                         }
                                     } else{
+                                        wlog("Libro: " + response4.getTitle() + " - " + "Autor: " + response4.getAuthor() + "Found in Biblioteca B! ");
                                         System.out.println("Libro: " + response4.getTitle() + " - " + "Autor: " + response4.getAuthor());
                                     }
                                 } else {
+                                    wlog("Libro: " + response3.getTitle() + " - " + "Autor: " + response3.getAuthor() + "Found in Biblioteca A! ");
                                     System.out.println("Libro: " + response3.getTitle() + " - " + "Autor: " + response3.getAuthor());
                                 }
                                 cont = 0;
@@ -109,19 +154,25 @@ public class BibliotecaC {
                                     registry = LocateRegistry.getRegistry("192.168.1.104",55555); // Localhost: 127.0.0.1
                                     look_up = (Z39) registry.lookup("ServerC");
                                     Libro response7 = look_up.getAuthor("title", title);
+                                    wlog("getAuthor: Book title not found in biblioteca B!");
                                     if(response7 == null){  // Si no encuentra en la Biblioteca C, intenta con la biblioteca A.
                                         registry = LocateRegistry.getRegistry("192.168.1.104",55000); // Localhost: 127.0.0.1
                                         look_up = (Z39) registry.lookup("ServerA");
                                         Libro response8 = look_up.getAuthor("title", title);
+                                        wlog("getAuthor: Book title not found in biblioteca C!");
                                         if (response8 == null){
-                                            System.out.println("getAuthor: Book title not found!");
+                                            wlog("getAuthor: Book title not found in biblioteca A!");
+                                            System.out.println("getAuthor: Book title not found in biblioteca A!");
                                         } else {
                                             System.out.println("Libro: " + response8.getTitle() + " - " + "Autor: " + response8.getAuthor());
+                                            wlog("Libro: " + response8.getTitle() + " - " + "Autor: " + response8.getAuthor() + "Found in Biblioteca A ");
                                         }
                                     } else {
+                                        wlog("Libro: " + response7.getTitle() + " - " + "Autor: " + response7.getAuthor() + "Found in Biblioteca C ");
                                         System.out.println("Libro: " + response7.getTitle() + " - " + "Autor: " + response7.getAuthor());
                                     }
                                 } else {
+                                    wlog("Libro: " + response6.getTitle() + " - " + "Autor: " + response6.getAuthor() + "Found in Biblioteca B ");
                                     System.out.println("Libro: " + response6.getTitle() + " - " + "Autor: " + response6.getAuthor());
                                 }
                                 cont = 0;
@@ -144,25 +195,31 @@ public class BibliotecaC {
                                     registry = LocateRegistry.getRegistry("192.168.1.104",55000); // Localhost: 127.0.0.1
                                     look_up = (Z39) registry.lookup("ServerA");
                                     List<String> response1 = look_up.getBook(author);
+                                    wlog("getBook: Author not found in Biblioteca C!");
                                     if (response1 == null){ //Si no encuentra en la biblioteca A, intenta con la biblioteca B.
                                         registry = LocateRegistry.getRegistry("192.168.1.106",55500); // Localhost: 127.0.0.1
                                         look_up = (Z39) registry.lookup("ServerB");
                                         List<String> response2 = look_up.getBook(author);
+                                        wlog("getBook: Author not found in Biblioteca A!");
                                         if(response2 == null){
-                                            System.out.println("getBook: Author not found!");
+                                            wlog("getBook: Author not found in Biblioteca B!");
+                                            System.out.println("getBook: Author not found in Biblioteca B!");
                                         } else {
                                             response2.forEach((item) -> {
                                                 System.out.println(item);
+                                                wlog(item + "Found in Biblioteca B! ");
                                             });
                                         }
                                     } else {
                                         response1.forEach((item) -> {
                                             System.out.println(item);
+                                            wlog(item + "Found in Biblioteca A! ");
                                         });
                                     }
                                 } else {
                                     response.forEach((item) -> {
                                         System.out.println(item);
+                                        wlog(item + "Found in Biblioteca C! ");
                                     });
                                 }
                                 cont = 0;
@@ -178,25 +235,31 @@ public class BibliotecaC {
                                     registry = LocateRegistry.getRegistry("192.168.1.104",55555); // Localhost: 127.0.0.1
                                     look_up = (Z39) registry.lookup("ServerC");
                                     List<String> response4 = look_up.getBook(author);
+                                    wlog("getBook: Author not found in Biblioteca B!");
                                     if (response4 == null){ // Si no encuentra en la biblioteca C, intenta con la biblioteca A.
                                         registry = LocateRegistry.getRegistry("192.168.1.104",55000); // Localhost: 127.0.0.1
                                         look_up = (Z39) registry.lookup("ServerA");
                                         List<String> response5 = look_up.getBook(author);
+                                        wlog("getBook: Author not found in Biblioteca C!");
                                         if (response5 == null){
-                                            System.out.println("getBook: Author not found!");
+                                            wlog("getBook: Author not found in Biblioteca A!");
+                                            System.out.println("getBook: Author not found in Biblioteca A!");
                                         } else {
                                             response5.forEach((item) -> {
                                                 System.out.println(item);
+                                                wlog(item + "Found in Biblioteca A! ");
                                             });
                                         }
                                     } else {
                                         response4.forEach((item) -> {
                                             System.out.println(item);
+                                            wlog(item + "Found in Biblioteca C! ");
                                         });
                                     }
                                 } else {
                                     response3.forEach((item) -> {
                                         System.out.println(item);
+                                        wlog(item + "Found in Biblioteca B! ");
                                     });
                                 }
                                 cont = 0;
@@ -212,25 +275,31 @@ public class BibliotecaC {
                                     registry = LocateRegistry.getRegistry("192.168.1.106",55500); // Localhost: 127.0.0.1
                                     look_up = (Z39) registry.lookup("ServerB");
                                     List<String> response7 = look_up.getBook(author);
+                                    wlog("getBook: Author not found in Biblioteca A!");
                                     if (response7 == null){ // Si no encuentra en la biblioteca B, intenta con la biblioteca C.
                                         registry = LocateRegistry.getRegistry("192.168.1.104",55555); // Localhost: 127.0.0.1
                                         look_up = (Z39) registry.lookup("ServerC");
                                         List<String> response8 = look_up.getBook(author);
+                                        wlog("getBook: Author not found in Biblioteca B!");
                                         if (response8 == null){
-                                            System.out.println("getBook: Author not found!");
+                                            wlog("getBook: Author not found in Biblioteca C!");
+                                            System.out.println("getBook: Author not found in Biblioteca C!");
                                         } else {
                                             response8.forEach((item) -> {
                                                 System.out.println(item);
+                                                wlog(item + "Found in Biblioteca C! ");
                                             });
                                         }
                                     } else {
                                         response7.forEach((item) -> {
                                             System.out.println(item);
+                                            wlog(item + "Found in Biblioteca B! ");
                                         });
                                     }
                                 } else {
                                     response6.forEach((item) -> {
                                         System.out.println(item);
+                                        wlog(item + "Found in Biblioteca A! ");
                                     });
                                 }
                                 cont = 0;
